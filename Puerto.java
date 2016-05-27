@@ -1,4 +1,3 @@
-
 /**
  * Write a description of class Puerto here.
  * 
@@ -7,27 +6,54 @@
  */
 public class Puerto
 {
-    // instance variables - replace the example below with your own
-    private int x;
+    private Alquiler[] alquileres;
+    private static final int NUMERO_AMARRES = 4;
 
     /**
      * Constructor for objects of class Puerto
      */
     public Puerto()
     {
-        // initialise instance variables
-        x = 0;
+        alquileres = new Alquiler[NUMERO_AMARRES];
     }
 
     /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
+     * Método que añade un alquiler a la lista
+     * Si lo añade correctamente devuelve la posición en la que se ha añadido
+     * Si no lo puede añadir devuelve -1
      */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    public int addAlquiler(int numeroDias,Cliente cliente,Barco barco){
+        int pos = -1;
+        Alquiler nuevoAlquiler = new Alquiler(numeroDias,cliente,barco);
+        for (int i = 0; i < alquileres.length; i++){
+            if (alquileres[i] == null){
+                pos = i;
+                alquileres[i] = nuevoAlquiler;
+            }
+        }
+        return pos;
+    }
+    
+    /**
+     * Método que muestra los datos de los amarres
+     */
+    public void verEstadoAmarres(){
+        for (int i = 0; i < alquileres.length; i++){
+            if (alquileres[i] != null){
+                System.out.println("El amarre que ocupa la posición: " + i + " tiene un coste de: " + alquileres[i].getCosteAlquiler());
+            }
+            else {
+                System.out.println("El amarre que ocupa la posición: " + i + " está vacío");
+            }
+        }
+    }
+    
+    /**
+     * Método que devuelve el coste de un alquiler y lo elimina de la colección
+     */
+    public float liquidarAlquiler(int posicion){
+        float valorDevuelto = alquileres[posicion].getCosteAlquiler();
+        alquileres[posicion] = null;
+        return valorDevuelto;
     }
 }
