@@ -1,4 +1,3 @@
-
 /**
  * Write a description of class Barco here.
  * 
@@ -52,7 +51,6 @@ public abstract class Barco
      */
     @Override
     public String toString(){
-        return "Matricula: " + matricula + "\nEslora: " + eslora +
-               "\nAño de fabricacion: " + anoFabricacion;
+        return "Matricula: " + matricula + "\nEslora: " + eslora + "\nAño de fabricacion: " + anoFabricacion;
     }
 }

@@ -1,4 +1,3 @@
-
 /**
  * Write a description of class EmbarcacionDeportiva here.
  * 
@@ -29,6 +28,7 @@ public class EmbarcacionDeportiva extends Barco
     /**
      * Método toString que muestra los datos de este tipo de barco
      */
+    @Override
     public String toString(){
         return super.toString() + "\nPotencia: " + potencia;
     }
