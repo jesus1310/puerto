@@ -20,14 +20,14 @@ public class Cliente
     }
 
     /**
-     * Método que devuelve el dni
+     * Método que devuelve el dni del ciente
      */
     public String getDni(){
         return dni;
     }
     
     /**
-     * Método que devuelve el nombre
+     * Método que devuelve el nombre del cliente
      */
     public String getNombre(){
         return nombre;
