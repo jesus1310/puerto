@@ -7,27 +7,29 @@
  */
 public class EmbarcacionDeportiva extends Barco
 {
-    // instance variables - replace the example below with your own
-    private int x;
+    private int potencia;
 
     /**
      * Constructor for objects of class EmbarcacionDeportiva
      */
-    public EmbarcacionDeportiva()
+    public EmbarcacionDeportiva(int potencia,String matricula,float eslora,int anoFabricacion)
     {
-        // initialise instance variables
-        x = 0;
+        super(matricula,eslora,anoFabricacion);
+        this.potencia = potencia;
     }
 
     /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
+     * Método que devuelve el coeficiente de bernua de este tipo de barco
      */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    @Override
+    public int getCoeficienteBernua(){
+        return potencia;
+    }
+    
+    /**
+     * Método toString que muestra los datos de este tipo de barco
+     */
+    public String toString(){
+        return super.toString() + "\nPotencia: " + potencia;
     }
 }

@@ -53,6 +53,6 @@ public abstract class Barco
     @Override
     public String toString(){
         return "Matricula: " + matricula + "\nEslora: " + eslora +
-               "\nAñño de fabricacion: " + anoFabricacion;
+               "\nAño de fabricacion: " + anoFabricacion;
     }
 }
