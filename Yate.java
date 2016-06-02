@@ -22,7 +22,7 @@ public class Yate extends EmbarcacionDeportiva
      */
     @Override
     public int getCoeficienteBernua(){
-        return camarotes;
+        return super.getCoeficienteBernua() + camarotes;
     }
     
     /**

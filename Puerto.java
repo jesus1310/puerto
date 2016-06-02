@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Write a description of class Puerto here.
  * 
@@ -6,7 +8,9 @@
  */
 public class Puerto
 {
-    private Alquiler[] alquileres;
+    // Almacena una coleccion de alquileres
+    private ArrayList<Alquiler> alquileres;
+    // Almacena el numero de amarres que hay en el puerto
     private static final int NUMERO_AMARRES = 4;
 
     /**
@@ -14,46 +18,78 @@ public class Puerto
      */
     public Puerto()
     {
-        alquileres = new Alquiler[NUMERO_AMARRES];
+        alquileres = new ArrayList<>();
     }
 
     /**
-     * Método que añade un alquiler a la lista
-     * Si lo añade correctamente devuelve la posición en la que se ha añadido
-     * Si no lo puede añadir devuelve -1
+     * Añade un alquiler a la coleccion de alquileres
+     * Devuelve la posicion del barco o -1 si no lo puede añadir
      */
-    public int addAlquiler(int numeroDias,Cliente cliente,Barco barco){
-        int pos = -1;
-        Alquiler nuevoAlquiler = new Alquiler(numeroDias,cliente,barco);
-        for (int i = 0; i < alquileres.length; i++){
-            if (alquileres[i] == null){
-                pos = i;
-                alquileres[i] = nuevoAlquiler;
-            }
-        }
-        return pos;
-    }
-    
-    /**
-     * Método que muestra los datos de los amarres
-     */
-    public void verEstadoAmarres(){
-        for (int i = 0; i < alquileres.length; i++){
-            if (alquileres[i] != null){
-                System.out.println("El amarre que ocupa la posición: " + i + " tiene un coste de: " + alquileres[i].getCosteAlquiler());
+    public int addAlquiler(int numeroDias, Cliente cliente, Barco barco,int posicion)
+    {        
+        int posicionFinal = -1;
+        boolean mismoAmarre = false;
+        if (posicion - 1 >= 0 && posicion -1 < NUMERO_AMARRES) {
+            if (alquileres.size() == 0) {
+                alquileres.add(new Alquiler(numeroDias, cliente, barco,posicion));
+                posicionFinal = posicion;
             }
             else {
-                System.out.println("El amarre que ocupa la posición: " + i + " está vacío");
+                for (int i = 0; i < alquileres.size(); i++) {
+                    if (alquileres.get(i).getPosicionAmarre() == posicion) {
+                        mismoAmarre = true;
+                    }
+                }
+                if (!mismoAmarre) {
+                    alquileres.add(new Alquiler(numeroDias, cliente, barco,posicion));
+                    posicionFinal = posicion;
+                }
             }
         }
+        else {
+            System.out.println("El amarre introducido debe estar entre 1 y " + NUMERO_AMARRES);
+        }
+        return posicionFinal;
     }
-    
+
     /**
-     * Método que devuelve el coste de un alquiler y lo elimina de la colección
+     * Devuelve el precio del alquiler si el amarre esta ocupado o te informa de si esta vacio
      */
-    public float liquidarAlquiler(int posicion){
-        float valorDevuelto = alquileres[posicion].getCosteAlquiler();
-        alquileres[posicion] = null;
-        return valorDevuelto;
+    public void verEstadoAmarres()
+    {
+        String estado[] = {"El amarre 1 esta vacio","El amarre 2 esta vacio","El amarre 3 esta vacio","El amarre 4 esta vacio"};
+        String cadena = null;
+        for (int i = 0; i < alquileres.size(); i++) {
+            if (alquileres.get(i).getPosicionAmarre() > 0) {
+                estado[alquileres.get(i).getPosicionAmarre() - 1]= "Precio del alquiler " + 
+                alquileres.get(i).getPosicionAmarre() + 
+                ": " + alquileres.get(i).getCosteAlquiler();                
+            }           
+        }
+        for (int i = 0; i < estado.length; i++) {
+            System.out.println(estado[i]);
+        }
+    }
+
+    /**
+     * Devuelve el coste del alquiler de un amarre y lo elimina de la coleccion
+     */
+    public float liquidarAlquiler(int posicion)
+    {
+        float coste = -1;
+        if (posicion <= NUMERO_AMARRES && posicion > 0) {
+            boolean alquilerLiquidado = false;
+            for (int i = 0; i < alquileres.size() && !alquilerLiquidado; i++) {
+                if (alquileres.get(i).getPosicionAmarre() == posicion) {
+                    coste = alquileres.get(posicion - 1).getCosteAlquiler();
+                    alquileres.remove(posicion - 1);
+                    alquilerLiquidado = true;
+                }
+            }                 
+        }
+        else {
+            System.out.println("El amarre introducido debe estar entre 1 y " + NUMERO_AMARRES);
+        }
+        return coste;
     }
 }
